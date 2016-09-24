@@ -1,8 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurnTogether", "BurnTogether.csproj", "{B7221C46-04CB-4143-9857-D1B1F3E38458}"
 EndProject
 Global
@@ -15,9 +13,6 @@ Global
 		{B7221C46-04CB-4143-9857-D1B1F3E38458}.Debug|x86.Build.0 = Debug|x86
 		{B7221C46-04CB-4143-9857-D1B1F3E38458}.Release|x86.ActiveCfg = Release|x86
 		{B7221C46-04CB-4143-9857-D1B1F3E38458}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = BurnTogether.csproj

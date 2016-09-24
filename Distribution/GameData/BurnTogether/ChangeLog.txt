@@ -1,0 +1,56 @@
+﻿v0.0.7.2 - alpha release. 
+- Recompiled for KSP 1.2pr
+
+v0.0.7.1 - alpha release.  First release by Papa_Joe and the BDAarmory Team
+- Recompiled for KSP 1.1.3
+- minor changes for strict types.
+- formal versioning for improved tracking.  Since it is alpha, major and minor versions should be 0.
+
+alpha v7.0
+- new follower control system
+-- follower oscillation reduced
+-- custom steering settings option
+-- angular momentum limited
+- fixed error when turning off BT from leader
+- followers now block out user input
+- followers thrust ratio constantly updated
+- leader's thrust limit constantly updated
+- fixed occasional loss of followers during warp
+- fixed velocity of followers after warp
+- other small bug fixes
+
+alpha v6.0:
+-0.90 compatibility
+-a bit of code clean up
+
+alpha v5.1:
+-timewarp lock occurs only if followers are within 0.1m/s of leader
+-fixed loss of followers during high timewarp
+
+alpha v5:
+-added some rudimentary rover support
+-ships lock in position during timewarp
+
+alpha v4:
+-added the rest of the 10 action groups for the "AG Mimic" function.
+
+alpha v3:
+-works with ModuleEnginesFX now (for new .23.5 engines and hotrockets(?))
+-Added "Toggle AG Mimic" button to make followers copy leader's action groups.  (Currently only supports landing gear and lights)
+-Added action groups for main functions
+-TWR matching now takes engine throttle limit tweaks into account.
+-leader ships with higher TWR than followers will now have their max throttle limited.
+-followers will now cut engines if the leader runs out of fuel
+-improved RCS kill rvel function.
+
+
+alpha v2:
+-followers use RCS to kill relative velocity to leader
+-part indicator light (red: off, blue: follower, green: leader)
+-BT turns off when vessel is uncontrollable (command module detaches, probe out of electricity, etc)
+-followers automatically activate SAS and RCS.
+
+alpha v1:
+-Initial alpha release
+-followers use sas to copy leader's attitude
+-followers copy leader's twr.

@@ -652,7 +652,7 @@ namespace BurnTogether
 
 
 
-				foreach(KeyValuePair<Vessel, Vector3> wFollower in warpFollowers)
+				foreach(var wFollower in warpFollowers)
 				{
 					wFollower.Key.SetPosition(vessel.transform.position+wFollower.Value);
 					wFollower.Key.obt_velocity = vessel.obt_velocity;
@@ -665,7 +665,7 @@ namespace BurnTogether
 				//ending warp. realign followers
 				if(!beginWarp)
 				{
-					foreach(KeyValuePair<Vessel, Vector3> wFollower in warpFollowers)
+					foreach(var wFollower in warpFollowers)
 					{
 						Vector3d newPosition = vessel.transform.position+wFollower.Value;
 
@@ -695,14 +695,14 @@ namespace BurnTogether
 			{
 				double maxControl = torqueOverdrive ? 1.5 : 1.0;
 				Vector3d damper = Vector3d.zero;
-				Vector3 centerOfMass = vessel.CoM;
-			  Vector3 momentOfInertia = vessel.localCoM; // was   .findLocalMOI(centerOfMass);
+				var centerOfMass = vessel.findWorldCenterOfMass();
+				Vector3 momentOfInertia = vessel.findLocalMOI(centerOfMass);
 
 				//automatic damping (needs improvement)
 				if(!customDamping)
 				{
 					Vector3d torque = Utils.GetTorque(vessel, 0);
-					Vector3d effectiveInertia = Utils.GetEffectiveInertia(vessel, torque);
+					var effectiveInertia = Utils.GetEffectiveInertia(vessel, torque);
 					Vector3d controlAuthority = Vector3d.Scale(torque, Utils.Inverse(momentOfInertia));
 					damper = 4500 * Utils.Inverse(Utils.Abs(controlAuthority)+Vector3d.one);
 
@@ -807,7 +807,7 @@ namespace BurnTogether
 		{
 			float TWR = GetThrustToWeight(vessel);
 			float newThrottleLimit = 1;
-			foreach(BurnTogether follower in followers)
+			foreach(var follower in followers)
 			{
 				if(follower && follower.isFollowing && follower.leader == this)
 				{

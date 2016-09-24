@@ -1,0 +1,1 @@
+Copy the 'BurnTogether' folder into the GameData folder of KSP.

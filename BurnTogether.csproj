@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,6 +10,26 @@
     <RootNamespace>BurnTogether</RootNamespace>
     <AssemblyName>BurnTogether</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -34,14 +54,114 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="BurnTogether.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Games\KSP\KSP 0.90 - Mod Dev\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Games\SteamLibrary\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\Games\KSP\KSP 0.90 - Mod Dev\KSP_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Games\SteamLibrary\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPAssets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Games\SteamLibrary\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\KSPAssets.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Games\SteamLibrary\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Games\SteamLibrary\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Vectrosity">
+      <HintPath>..\..\..\..\..\..\SteamLibrary\SteamApps\common\Kerbal Space Program\KSP_x64_Data\Managed\Vectrosity.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Distribution\GameData\BurnTogether\ChangeLog.txt" />
+    <Content Include="Distribution\GameData\BurnTogether\License.txt" />
+    <Content Include="Distribution\GameData\BurnTogether\Plugins\BurnTogether.dll" />
+    <Content Include="Distribution\Installation.txt" />
+    <Content Include="LocalDev\7za_dir.txt" />
+    <Content Include="LocalDev\dist_dir.txt" />
+    <Content Include="LocalDev\ksp_dir.txt" />
+    <Content Include="LocalDev\mono_exe.txt" />
+    <Content Include="LocalDev\pdb2mdb_exe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Distribution\GameData\BurnTogether\BTforCommandModules.zip" />
+    <None Include="Distribution\GameData\BurnTogether\BurnTogether.version" />
+    <None Include="Distribution\GameData\BurnTogether\Parts\burnTogether\model.mu" />
+    <None Include="Distribution\GameData\BurnTogether\Parts\burnTogether\part.cfg" />
+    <None Include="Distribution\GameData\BurnTogether\Parts\burnTogether\tex.tga" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>@echo $(Targetname)
+@echo ...
+@echo set lpath vars from LocalDev storage...
+set /p KSP_DIR=&lt;"$(ProjectDir)LocalDev\ksp_dir.txt"
+set /p PDB2MDB_EXE=&lt;"$(ProjectDir)LocalDev\pdb2mdb_exe.txt"
+set /p ZA_DIR=&lt;"$(ProjectDir)LocalDev\7za_dir.txt"
+set /p DIST_DIR=&lt;"$(ProjectDir)LocalDev\dist_dir.txt"
+
+@echo distributing $(Targetname) files...
+copy /Y "$(TargetPath)" "$(ProjectDir)Distribution\GameData\$(Targetname)\Plugins\"
+
+@echo building $(Targetname).dll.mdb file...
+cd "$(TargetDir)"
+call "%25PDB2MDB_EXE%25" $(Targetname).dll
+
+copy /Y "$(TargetDir)$(Targetname).dll.mdb" "%25KSP_DIR%25\GameData\$(Targetname)\Plugins\"
+
+@echo packaging files...
+if exist "E:\KSP\Mods\PJS\Releases\$(Targetname)\Build\$(Targetname)*.zip" del "E:\KSP\Mods\PJS\Releases\$(Targetname)\Build\$(Targetname)*.zip"
+call "%25ZA_DIR%25\7za.exe" a -tzip -r  "%25DIST_DIR%25\$(Targetname).@(VersionNumber)_%25DATE:~4,2%25%25DATE:~7,2%25%25DATE:~10,4%25.zip" "$(ProjectDir)Distribution\*.*"
+
+@echo Deploy $(Targetname) Distribution files from $(SolutionDir)Distribution\GameData, 
+@echo  to test env:  %25KSP_DIR%25\GameData...
+xcopy /E /Y "$(SolutionDir)Distribution\GameData" "%25KSP_DIR%25\GameData"
+copy /Y "$(TargetDir)$(Targetname).pdb" "%25KSP_DIR%25\GameData\$(Targetname)\Plugins\"
+
+@echo Build/deploy complete!
+</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="@(Targets->'%(Version)')" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+    $(PostBuildEventDependsOn);
+    PostBuildMacros;
+  </PostBuildEventDependsOn>
+  </PropertyGroup>
 </Project>

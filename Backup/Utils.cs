@@ -10,10 +10,10 @@ namespace BurnTogether
 	{
 		public static AnimationState[] SetUpAnimation(string animationName, Part part)  //Thanks Majiir!
         {
-            List<AnimationState> states = new List<AnimationState>();
-            foreach (Animation animation in part.FindModelAnimators(animationName))
+            var states = new List<AnimationState>();
+            foreach (var animation in part.FindModelAnimators(animationName))
             {
-                AnimationState animationState = animation[animationName];
+                var animationState = animation[animationName];
                 animationState.speed = 0;
                 animationState.enabled = true;
                 animationState.wrapMode = WrapMode.ClampForever;
@@ -41,10 +41,10 @@ namespace BurnTogether
 		//from kOS
 		public static Vector3d GetTorque(Vessel vessel, float thrust)
 		{
-			Vector3 centerOfMass = vessel.CoM;
-			Vector3 rollaxis = vessel.ReferenceTransform.up;
+			var centerOfMass = vessel.findWorldCenterOfMass();
+			var rollaxis = vessel.ReferenceTransform.up;
 			rollaxis.Normalize ();
-			Vector3 pitchaxis = vessel.GetFwdVector ();
+			var pitchaxis = vessel.GetFwdVector ();
 			pitchaxis.Normalize ();
 			
 			float pitch = 0.0f;
@@ -68,7 +68,7 @@ namespace BurnTogether
 				{
 					if (rcs == null || !rcs.rcsEnabled) continue;
 
-					Vector3 relCoM = rcs.part.Rigidbody.worldCenterOfMass - centerOfMass;
+					var relCoM = rcs.part.Rigidbody.worldCenterOfMass - centerOfMass;
 
 					bool enoughfuel = rcs.propellants.All(p => (int) (p.totalResourceAvailable) != 0);
 					if (!enoughfuel) continue;
@@ -94,12 +94,12 @@ namespace BurnTogether
 
 		public static Vector3d GetEffectiveInertia(Vessel vessel, Vector3d torque)
 		{
-			Vector3 centerOfMass = vessel.CoM;
-		  Vector3 momentOfInertia = vessel.localCoM; // was .findLocalMOI(centerOfMass);
-			Vector3 angularVelocity = Quaternion.Inverse(vessel.ReferenceTransform.rotation) * vessel.GetComponent<Rigidbody>().angularVelocity;
-			Vector3d angularMomentum = new Vector3d(angularVelocity.x * momentOfInertia.x, angularVelocity.y * momentOfInertia.y, angularVelocity.z * momentOfInertia.z);
+			var centerOfMass = vessel.findWorldCenterOfMass();
+			var momentOfInertia = vessel.findLocalMOI(centerOfMass);
+			var angularVelocity = Quaternion.Inverse(vessel.ReferenceTransform.rotation) * vessel.rigidbody.angularVelocity;
+			var angularMomentum = new Vector3d(angularVelocity.x * momentOfInertia.x, angularVelocity.y * momentOfInertia.y, angularVelocity.z * momentOfInertia.z);
 			
-			Vector3d retVar = Vector3d.Scale
+			var retVar = Vector3d.Scale
 				(
 					Sign(angularMomentum) * 2.0f,
 					Vector3d.Scale(Pow(angularMomentum, 2), Inverse(Vector3d.Scale(torque, momentOfInertia)))
@@ -141,13 +141,17 @@ namespace BurnTogether
 			{
 				return min;
 			}
-			return value > max ? max : value;
+			if(value > max)
+			{
+				return max;
+			}
+			return value;
 		}
 
 		//refreshes part action window
 		public static void RefreshAssociatedWindows(Part part)
 		{
-			foreach (UIPartActionWindow window in GameObject.FindObjectsOfType( typeof( UIPartActionWindow ) ) ) 
+			foreach ( UIPartActionWindow window in GameObject.FindObjectsOfType( typeof( UIPartActionWindow ) ) ) 
 			{
 				if ( window.part == part )
 				{
